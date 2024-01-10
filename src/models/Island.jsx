@@ -31,8 +31,6 @@ const Island = ({isRotating,setIsRotating,...props}) =>{
         e.stopPropagation();
         e.preventDefault();
         setIsRotating(false);
-
-
     }
     const handlePointerMove = (e) =>{
         e.stopPropagation();
@@ -56,10 +54,12 @@ const Island = ({isRotating,setIsRotating,...props}) =>{
     const handleKeyDown = (e) =>{
         if(e.key == 'ArrowLeft'){
             if(!isRotating) setIsRotating(true);
-            islandRef.current.rotatiton.y += 0.01 * Math.PI;
+            islandRef.current.rotatiton.y += 0.005 * Math.PI;
+            rotationSpeed.current = 0.007;
         } else if(e.key == 'ArrowRight'){
             if(!isRotating) setIsRotating(true);
-            islandRef.current.rotatiton.y -= 0.01 * Math.PI;
+            islandRef.current.rotatiton.y -= 0.005 * Math.PI;
+            rotationSpeed.current = -0.007;
         }
     }
     const handleKeyUp = (e) =>{
@@ -75,6 +75,8 @@ const Island = ({isRotating,setIsRotating,...props}) =>{
             if(Math.abs(rotationSpeed.current)< 0.001){
                 rotationSpeed.current=0;
             }
+
+            islandRef.current.rotation.y += rotationSpeed.current;
         } else{
             const rotation = islandRef.current.rotation.y;
 
