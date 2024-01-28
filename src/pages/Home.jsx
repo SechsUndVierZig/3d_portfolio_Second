@@ -8,9 +8,11 @@ import Island from '../models/Island';
 import Sky from "../models/Sky.jsx";
 import Bird from "../models/Bird.jsx";
 import Plane from "../models/Plane.jsx";
+import HomeInfo from "../components/HomeInfo.jsx";
 
 const Home = () => {
     const [isRotating,setIsRotating] = useState(false);
+    const [currentStage,setCurrentStage] = useState(1);
     const adjustIslandForScreen = ()=>{
         let screenScale = null, screenPosition = [0,-6.5,-43];
         let rotation = [0.1,4.7,0];
@@ -36,6 +38,9 @@ const Home = () => {
     const [planeScale,planePosition] = adjustPlaneForScreen();
     return (
         <section className="w-full h-screen relative">
+            <div className="absolute top-28 left-0 right-0 z-10 flex items-center justify-center">
+                {currentStage && <HomeInfo currentStage={currentStage} />}
+            </div>
             <Canvas
                 className={`w-full h-screen bg-transparent ${isRotating ? 'cursor-grabbing' : 'cursor-grab'}`}
                 camera={{near:0.1,far:1000}}
@@ -47,13 +52,16 @@ const Home = () => {
 
 
                 <Bird/>
-                <Sky/>
+                <Sky
+                    isRotating={isRotating}
+                />
                 <Island
                     position={islandPosition}
                     scale = {islandScale}
                     rotation = {islandRotation}
                     isRotating={isRotating}
                     setIsRotating={setIsRotating}
+                    setCurrentStage={setCurrentStage}
                 />
                 <Plane
                     isRotating={isRotating}
