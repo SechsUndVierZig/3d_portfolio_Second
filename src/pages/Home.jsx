@@ -4,7 +4,7 @@
 import {Canvas} from '@react-three/fiber';
 import {Suspense, useState} from 'react';
 import Loader from '../components/Loader.jsx';
-import Island from '../models/Island';
+import {Island} from "../models/Island";
 import Sky from "../models/Sky.jsx";
 import Bird from "../models/Bird.jsx";
 import Plane from "../models/Plane.jsx";
@@ -56,12 +56,12 @@ const Home = () => {
                     isRotating={isRotating}
                 />
                 <Island
-                    position={islandPosition}
-                    scale = {islandScale}
-                    rotation = {islandRotation}
                     isRotating={isRotating}
                     setIsRotating={setIsRotating}
                     setCurrentStage={setCurrentStage}
+                    position={islandPosition}
+                    rotation={[0.1, 4.7077, 0]}
+                    scale={islandScale}
                 />
                 <Plane
                     isRotating={isRotating}
