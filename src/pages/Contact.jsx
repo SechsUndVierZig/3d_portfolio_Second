@@ -1,4 +1,6 @@
 import {useRef, useState} from 'react';
+import emailjs from '@emailjs/browser';
+
 
 const Contact = () => {
     const formRef = useRef(null);
@@ -10,15 +12,36 @@ const Contact = () => {
     }
 
     const handleFocus = (e) => {
+
+    }
+
+    const handleBlur = (e) => {
+
+    }
+
+    const handleSubmit = (e) => {
         e.preventDefault();
         setIsLoading(true);
-    }
 
-    const handleBlur = () => {
+        emailjs.send(
+            import.meta.env.VITE_APP_EMAILJS_SERVICE_ID,
+            import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID,
+            {
+                form_name: form.name,
+                to_name: "Oleksandr",
+                from_email:form.email,
+                to_email:"IchigoNiclas1@gmail.com",
+                message:form.message
+            },
+            import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY
+        ).then(()=>{
+            setIsLoading(false);
 
-    }
-
-    const handleSubmit = () => {
+            setForm({name:'',email: '',message: ''})
+        }).catch((error)=>{
+            setIsLoading(false);
+            console.log(error);
+        })
 
     }
 
@@ -54,7 +77,7 @@ const Contact = () => {
                             className="input"
                             placeholder="john@gmail.com"
                             required
-                            value={form.name}
+                            value={form.email}
                             onChange={handleChange}
                             onFocus={handleFocus}
                             onBlur={handleBlur}
