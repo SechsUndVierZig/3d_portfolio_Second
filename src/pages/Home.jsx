@@ -2,7 +2,7 @@
                 POPUP
             </div>*/
 import {Canvas} from '@react-three/fiber';
-import {Suspense, useState} from 'react';
+import {Suspense, useState, useRef, useEffect} from 'react';
 import Loader from '../components/Loader.jsx';
 import {Island} from "../models/Island";
 import Sky from "../models/Sky.jsx";
@@ -11,10 +11,25 @@ import Plane from "../models/Plane.jsx";
 import HomeInfo from "../components/HomeInfo.jsx";
 
 import sakura from '../assets/sakura.mp3';
+import {soundoff, soundon} from "../assets/icons/index.js";
 
 const Home = () => {
+
+    const audioRef = useRef(new Audio(sakura));
+    audioRef.current.volume = 0.4;
+    audioRef.current.loop = true;
     const [isRotating,setIsRotating] = useState(false);
     const [currentStage,setCurrentStage] = useState(1);
+    const [isPlayingMusic,setIsPlayingMusic] = useState(false);
+
+    useEffect(()=>{
+        if(isPlayingMusic){
+            audioRef.current.play();
+        }
+        return ()=>{
+            audioRef.current.pause();
+        }
+    },[isPlayingMusic])
     const adjustIslandForScreen = ()=>{
         let screenScale = null, screenPosition = [0,-6.5,-43];
         let rotation = [0.1,4.7,0];
@@ -73,6 +88,15 @@ const Home = () => {
                 />
             </Suspense>
             </Canvas>
+
+            <div className="absolute bottom-2 left-2">
+                <img
+                    src={!isPlayingMusic ? soundoff : soundon}
+                    alt="sound"
+                    className="w-10 h-10 cursor-pointer object-contain"
+                    onClick={()=>{setIsPlayingMusic(!isPlayingMusic)}}
+                />
+            </div>
         </section>
     );
 };
