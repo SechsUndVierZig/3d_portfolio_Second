@@ -1,10 +1,12 @@
 import React from 'react';
+import {Link} from "react-router-dom";
 
 const Cta = () => {
     return (
-        <div>
-            CTA
-        </div>
+        <section className="cta">
+            <p className="cta-text">Have a project in mid? <br className="sm:block hidden"/> Let's build something together!</p>
+            <Link to="/contact" className="btn">Contact</Link>
+        </section>
     );
 };
 
