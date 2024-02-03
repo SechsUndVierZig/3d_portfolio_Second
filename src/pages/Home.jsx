@@ -10,6 +10,8 @@ import Bird from "../models/Bird.jsx";
 import Plane from "../models/Plane.jsx";
 import HomeInfo from "../components/HomeInfo.jsx";
 
+import sakura from '../assets/sakura.mp3';
+
 const Home = () => {
     const [isRotating,setIsRotating] = useState(false);
     const [currentStage,setCurrentStage] = useState(1);
@@ -65,8 +67,8 @@ const Home = () => {
                 />
                 <Plane
                     isRotating={isRotating}
-                    planeScale={planeScale}
-                    planePosition={planePosition}
+                    scale={planeScale}
+                    position={planePosition}
                     rotation={[0,20,0]}
                 />
             </Suspense>
